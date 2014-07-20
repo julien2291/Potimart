@@ -36,7 +36,7 @@ LOOP
         --RAISE NOTICE 'stop area id %', stop_area.sa_id;
         query := 'INSERT INTO potimart.service_links (line_id , route_id , journeypattern_id , stoparea_start_id , stoparea_arrival_id , the_geom) 
                          VALUES ('|| stop_area.lnid || ','  || stop_area.rtid || ','  || journeypattern_id  || ','  || id_startarea || ','  || stop_area.sa_id || ',
-                                 LinestringFromText(' || '''LINESTRING(' || long_start || ' ' || lat_start || ',' || stop_area.longitude || ' ' || stop_area.latitude ||')''' || ', 4326 ) );';
+                                 ST_GeomFromText(' || '''LINESTRING(' || long_start || ' ' || lat_start || ',' || stop_area.longitude || ' ' || stop_area.latitude ||')''' || ', 4326 ) );';
 
         RAISE NOTICE 'request %', query;
         EXECUTE query;
