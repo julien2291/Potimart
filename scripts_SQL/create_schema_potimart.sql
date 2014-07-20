@@ -34,9 +34,9 @@ CREATE TABLE potimart.service_links
   the_geom geometry,
   main_journey_pattern boolean,
   CONSTRAINT pathlinks_pkey PRIMARY KEY (id),
-  CONSTRAINT enforce_dims_the_geom CHECK (ndims(the_geom) = 2),
+  CONSTRAINT enforce_dims_the_geom CHECK (ST_NDims(the_geom) = 2),
   CONSTRAINT enforce_geotype_the_geom CHECK (geometrytype(the_geom) = 'LINESTRING'::text OR the_geom IS NULL),
-  CONSTRAINT enforce_srid_the_geom CHECK (srid(the_geom) = 4326)
+  CONSTRAINT enforce_srid_the_geom CHECK (ST_SRID(the_geom) = 4326)
 )
 WITH (
   OIDS=FALSE
@@ -57,9 +57,9 @@ CREATE TABLE potimart.stop_area_geos
   updated_at timestamp without time zone,
   the_geom geometry,
   CONSTRAINT stop_area_geos_pkey PRIMARY KEY (id),
-  CONSTRAINT enforce_dims_the_geom CHECK (ndims(the_geom) = 2),
+  CONSTRAINT enforce_dims_the_geom CHECK (ST_NDims(the_geom) = 2),
   CONSTRAINT enforce_geotype_the_geom CHECK (geometrytype(the_geom) = 'POINT'::text OR the_geom IS NULL),
-  CONSTRAINT enforce_srid_the_geom CHECK (srid(the_geom) = 4326)
+  CONSTRAINT enforce_srid_the_geom CHECK (ST_SRID(the_geom) = 4326)
 )
 WITH (
   OIDS=FALSE
@@ -124,6 +124,3 @@ CREATE INDEX index_line_indicators_on_name
   ON potimart.line_indicators
   USING btree
   (name);
-
-
-
